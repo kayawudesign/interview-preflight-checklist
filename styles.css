@@ -85,12 +85,7 @@ button {
 }
 
 .progress-track {
-  width: 100%;
-  height: 8px;
-  margin-top: 10px;
-  overflow: hidden;
-  border-radius: 999px;
-  background: rgba(32, 36, 43, 0.1);
+  display: none;
 }
 
 .progress-fill {
@@ -139,6 +134,60 @@ button {
   color: var(--muted);
   font-size: 1.08rem;
   line-height: 1.7;
+}
+
+.index-subtitle {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.index-list {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+.index-row {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 2px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.index-label {
+  font-size: 1.02rem;
+  font-weight: 820;
+  line-height: 1.2;
+}
+
+.index-sep {
+  color: var(--muted);
+  font-size: 0.96rem;
+  font-weight: 650;
+}
+
+.index-meaning {
+  color: var(--muted);
+  font-size: 0.96rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.index-row:focus-visible {
+  outline: 3px solid rgba(15, 118, 110, 0.28);
+  outline-offset: 2px;
 }
 
 .card-stack {
@@ -424,8 +473,9 @@ button {
 
 .completion-panel {
   display: grid;
+  gap: 10px;
   min-height: calc(100vh - 220px);
-  align-content: center;
+  align-content: start;
 }
 
 .completion-message {
