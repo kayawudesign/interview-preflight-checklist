@@ -3,21 +3,28 @@ const STORAGE_KEY = "interview-preflight-checklist";
 const screens = [
   {
     id: "home",
-    title: "打工面試快速檢查",
-    cta: "開始準備",
+    title: "打工面試工具箱",
+    cta: "面試前檢查",
     next: "checklist",
     render: () => `
       <section class="screen-panel" aria-labelledby="home-title">
-        <h1 class="screen-title" id="home-title">打工面試快速檢查</h1>
-        <p class="screen-subtitle">用 5 分鐘完成準備，讓自己更有把握。</p>
-        <div class="card benefit-list" aria-label="準備重點">
-          ${["確認是否準備完成", "查看常見問題回答模板", "找到聽不懂時的應對句"]
+        <h1 class="screen-title" id="home-title">打工面試工具箱</h1>
+        <div class="card benefit-list" aria-label="功能清單">
+          ${[
+            { label: "面試前檢查", desc: "準備確認", next: "checklist" },
+            { label: "常見問題", desc: "標準回答", next: "template" },
+            { label: "救援語句", desc: "卡住使用", next: "rescue" },
+            { label: "安心提示", desc: "緊張時用", next: "complete" },
+          ]
             .map(
               (item) => `
-                <div class="benefit-item">
+                <button class="benefit-item home-link" type="button" data-next="${item.next}">
                   <span class="benefit-icon" aria-hidden="true">✓</span>
-                  <span>${item}</span>
-                </div>
+                  <span class="benefit-copy">
+                    <span class="benefit-label">${item.label}</span>
+                    <span class="benefit-desc">${item.desc}</span>
+                  </span>
+                </button>
               `,
             )
             .join("")}
@@ -27,13 +34,12 @@ const screens = [
   },
   {
     id: "checklist",
-    title: "面試前快速檢查",
-    cta: "查看回答模板",
+    title: "面試前檢查",
+    cta: "常見問題",
     next: "template",
     render: () => `
       <section class="screen-panel" aria-labelledby="checklist-title">
-        <h1 class="screen-title" id="checklist-title">面試前快速檢查</h1>
-        <p class="description">請確認以下內容是否已準備好。</p>
+        <h1 class="screen-title" id="checklist-title">面試前檢查</h1>
         <div class="checklist-meta" aria-live="polite">
           <span id="checklistCount">已完成 0 / 5</span>
           <span class="meter" aria-hidden="true"><span id="checklistMeter"></span></span>
@@ -56,80 +62,85 @@ const screens = [
   },
   {
     id: "template",
-    title: "常見問題模板",
-    cta: "查看救援語句",
+    title: "常見問題",
+    cta: "救援語句",
     next: "rescue",
     render: () => `
       <section class="screen-panel" aria-labelledby="template-title">
-        <h1 class="screen-title" id="template-title">常見問題模板</h1>
+        <h1 class="screen-title" id="template-title">常見問題</h1>
         <div class="card question-card">
           <p class="section-label">問題</p>
-          <p class="question">為什麼想在這裡工作？</p>
+          <p class="question">為什麼想來這裡？</p>
           <ul class="key-points" aria-label="回答重點">
-            <li>想學習接客服務</li>
+            <li>接客經驗</li>
             <li>喜歡這家店</li>
             <li>通勤方便</li>
           </ul>
         </div>
         <div class="answer-block" aria-label="回答範例">
           <div class="card answer-card">
-            <p class="section-label">中文整理</p>
-            <p>我想學習接客服務，而且這裡離我住的地方很近，所以想在這裡工作。</p>
+            <p class="section-label">模板</p>
+            <p>想學接客，喜歡這家店，通勤也近。</p>
           </div>
           <div class="card answer-card japanese" lang="ja">
             <p class="section-label">日文例句</p>
             <p>接客を学びたいと思い、家からも近いので応募しました。</p>
           </div>
         </div>
-        <p class="hint">不需要完全照背，只要抓住重點即可。</p>
       </section>
     `,
   },
   {
     id: "rescue",
     title: "救援語句",
-    cta: "完成準備",
+    cta: "安心提示",
     next: "complete",
     render: () => `
       <section class="screen-panel" aria-labelledby="rescue-title">
         <h1 class="screen-title" id="rescue-title">救援語句</h1>
         <div class="phrase-section" aria-labelledby="listen-title">
           <h2 class="phrase-title" id="listen-title">聽不懂時</h2>
-          ${phraseCard("可以請您再說一次嗎？", "もう一度お願いします。")}
-          ${phraseCard("可以請您說慢一點嗎？", "ゆっくりお願いします。")}
+          ${phraseCard("再說一次", "もう一度お願いします。")}
+          ${phraseCard("說慢一點", "ゆっくりお願いします。")}
+          ${phraseCard("聽不懂", "すみません、わかりません。")}
         </div>
         <div class="phrase-section" aria-labelledby="thinking-title">
           <h2 class="phrase-title" id="thinking-title">需要思考時</h2>
-          ${phraseCard("我可以想一下嗎？", "少し考えてもいいですか。")}
-        </div>
-        <div class="reassurance-card card">
-          <p>聽不懂時請對方重複，是很正常的。</p>
+          ${phraseCard("想一下", "少し考えてもいいですか。")}
+          ${phraseCard("再確認", "確認してもいいですか。")}
         </div>
       </section>
     `,
   },
   {
     id: "complete",
-    title: "你已完成面試準備",
-    cta: "重新查看內容",
-    next: "checklist",
-    secondary: "回到首頁",
+    title: "安心提示",
+    cta: "回首頁",
+    next: "home",
+    secondary: "面試前檢查",
     render: () => `
       <section class="screen-panel completion-panel" aria-labelledby="complete-title">
-        <div class="completion-mark" aria-hidden="true">✓</div>
-        <h1 class="screen-title" id="complete-title">你已完成面試準備</h1>
-        <p class="completion-message">不需要完美的日文。<br>只要讓對方理解你的意思，就已經很好了。</p>
+        <h1 class="screen-title" id="complete-title">安心提示</h1>
+        <div class="card phrase-card">
+          <p class="phrase-zh">不用完美</p>
+        </div>
+        <div class="card phrase-card">
+          <p class="phrase-zh">短句可以</p>
+        </div>
+        <div class="card phrase-card">
+          <p class="phrase-zh">卡住正常</p>
+        </div>
       </section>
     `,
   },
 ];
 
 const checklistItems = [
-  { id: "intro", label: "我已準備好自我介紹" },
-  { id: "motivation", label: "我已準備好應徵動機" },
-  { id: "schedule", label: "我知道可上班的時間" },
-  { id: "commute", label: "我知道從住處到店裡的通勤時間" },
-  { id: "questions", label: "我已準備好想問店家的問題" },
+  { id: "intro", label: "自我介紹" },
+  { id: "motivation", label: "應徵動機" },
+  { id: "schedule", label: "可上班時間" },
+  { id: "commute", label: "通勤時間" },
+  { id: "questions", label: "提問內容" },
 ];
 
 const app = document.querySelector("#app");
@@ -175,7 +186,7 @@ function render(screenId = activeScreenId) {
       <button class="primary-button" type="button" data-next="${screen.next}">${screen.cta}</button>
       ${
         screen.secondary
-          ? `<button class="secondary-link" type="button" data-next="home">${screen.secondary}</button>`
+          ? `<button class="secondary-link" type="button" data-next="checklist">${screen.secondary}</button>`
           : ""
       }
     </nav>
