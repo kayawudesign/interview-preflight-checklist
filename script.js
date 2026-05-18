@@ -12,10 +12,11 @@ const screens = [
         <p class="index-subtitle">快速查找</p>
         <nav class="index-list" aria-label="功能索引">
           ${[
-            { label: "面試前檢查", desc: "準備確認", next: "checklist" },
-            { label: "常見問題", desc: "標準回答", next: "template" },
+            { label: "面試前快速檢查", desc: "準備確認", next: "checklist" },
+            { label: "簡易自我介紹模板", desc: "重點整理", next: "intro-template" },
+            { label: "常見問題模板", desc: "標準回答", next: "template" },
             { label: "救援語句", desc: "卡住使用", next: "rescue" },
-            { label: "安心提示", desc: "緊張時用", next: "complete" },
+            { label: "安心小語", desc: "緊張時用", next: "complete" },
           ]
             .map(
               (item) => `
@@ -33,14 +34,12 @@ const screens = [
   },
   {
     id: "checklist",
-    title: "面試前檢查",
+    title: "面試前快速檢查",
     cta: "回首頁",
     next: "home",
-    secondary: "常見問題",
-    secondaryNext: "template",
     render: () => `
       <section class="screen-panel" aria-labelledby="checklist-title">
-        <h1 class="screen-title" id="checklist-title">面試前檢查</h1>
+        <h1 class="screen-title" id="checklist-title">面試前快速檢查</h1>
         <div class="checklist-meta" aria-live="polite">
           <span id="checklistCount">0 / 5</span>
           <span class="meter" aria-hidden="true"><span id="checklistMeter"></span></span>
@@ -62,15 +61,32 @@ const screens = [
     `,
   },
   {
+    id: "intro-template",
+    title: "簡易自我介紹模板",
+    cta: "返回首頁",
+    next: "home",
+    render: () => `
+      <section class="screen-panel" aria-labelledby="intro-title">
+        <h1 class="screen-title" id="intro-title">簡易自我介紹模板</h1>
+        <p class="description">不用完整背下來，只要把重點整理好即可。</p>
+        <div class="form-list" aria-label="自我介紹欄位">
+          ${introField("名前", "＿＿＿＿＿＿", "")}
+          ${introField("國籍", "＿＿＿＿＿＿", "例：台湾から来ました。／台湾出身です。")}
+          ${introField("身分", "＿＿＿＿＿＿", "例：日本語学校に通っています。／留学生です。")}
+          ${introField("強み", "＿＿＿＿＿＿", "例：明るくて話すことが好きです。／真面目に頑張れます。")}
+          ${introField("応募理由", "＿＿＿＿＿＿", "例：家から近いので応募しました。／シフトが合いやすいです。")}
+        </div>
+      </section>
+    `,
+  },
+  {
     id: "template",
-    title: "常見問題",
+    title: "常見問題模板",
     cta: "回首頁",
     next: "home",
-    secondary: "救援語句",
-    secondaryNext: "rescue",
     render: () => `
       <section class="screen-panel" aria-labelledby="template-title">
-        <h1 class="screen-title" id="template-title">常見問題</h1>
+        <h1 class="screen-title" id="template-title">常見問題模板</h1>
         <div class="card question-card">
           <p class="section-label">問題</p>
           <p class="question">為什麼想來這裡？</p>
@@ -98,8 +114,6 @@ const screens = [
     title: "救援語句",
     cta: "回首頁",
     next: "home",
-    secondary: "安心提示",
-    secondaryNext: "complete",
     render: () => `
       <section class="screen-panel" aria-labelledby="rescue-title">
         <h1 class="screen-title" id="rescue-title">救援語句</h1>
@@ -119,14 +133,12 @@ const screens = [
   },
   {
     id: "complete",
-    title: "安心提示",
+    title: "安心小語",
     cta: "回首頁",
     next: "home",
-    secondary: "面試前檢查",
-    secondaryNext: "checklist",
     render: () => `
       <section class="screen-panel completion-panel" aria-labelledby="complete-title">
-        <h1 class="screen-title" id="complete-title">安心提示</h1>
+        <h1 class="screen-title" id="complete-title">安心小語</h1>
         <div class="card phrase-card">
           <p class="phrase-zh">不用完美</p>
         </div>
@@ -161,6 +173,15 @@ function phraseCard(zh, ja) {
     <article class="card phrase-card">
       <p class="phrase-zh">${zh}</p>
       <p class="phrase-ja" lang="ja">${ja}</p>
+    </article>
+  `;
+}
+
+function introField(label, blank, example) {
+  return `
+    <article class="card intro-field">
+      <p class="intro-label">${label}：<span class="intro-blank">${blank}</span></p>
+      ${example ? `<p class="intro-example">${example}</p>` : ""}
     </article>
   `;
 }

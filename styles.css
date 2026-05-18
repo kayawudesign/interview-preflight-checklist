@@ -408,6 +408,35 @@ button {
   font-weight: 720;
 }
 
+.form-list {
+  display: grid;
+  gap: 10px;
+}
+
+.intro-field {
+  padding: 14px 16px;
+}
+
+.intro-label {
+  margin: 0;
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 650;
+}
+
+.intro-blank {
+  letter-spacing: 0;
+}
+
+.intro-example {
+  margin: 6px 0 0;
+  color: #7b8390;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
 .hint {
   margin: 14px 0 0;
   padding: 14px 16px;
