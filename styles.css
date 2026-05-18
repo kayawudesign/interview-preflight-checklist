@@ -128,6 +128,13 @@ button {
   letter-spacing: 0;
 }
 
+.title-subline {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 0.78em;
+  font-weight: 750;
+}
+
 .screen-subtitle,
 .description {
   margin: 0 0 24px;
@@ -426,7 +433,10 @@ button {
 }
 
 .intro-blank {
+  display: inline-block;
+  min-width: 96px;
   letter-spacing: 0;
+  border-bottom: 1px solid #20242b;
 }
 
 .intro-example {
@@ -505,6 +515,39 @@ button {
   gap: 10px;
   min-height: calc(100vh - 220px);
   align-content: start;
+}
+
+.qa-list {
+  display: grid;
+  gap: 12px;
+}
+
+.qa-card {
+  padding: 16px;
+}
+
+.qa-lines p {
+  margin: 0;
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.45;
+  font-weight: 700;
+}
+
+.qa-lines p + p {
+  margin-top: 8px;
+}
+
+.qa-note {
+  padding: 14px 16px;
+}
+
+.qa-note p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.45;
+  font-weight: 700;
 }
 
 .completion-message {

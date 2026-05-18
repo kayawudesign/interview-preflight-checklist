@@ -8,7 +8,7 @@ const screens = [
     next: "",
     render: () => `
       <section class="screen-panel" aria-labelledby="home-title">
-        <h1 class="screen-title" id="home-title">打工面試工具箱</h1>
+        <h1 class="screen-title" id="home-title">面試快速檢查清單<br><span class="title-subline">打工版</span></h1>
         <p class="index-subtitle">快速查找</p>
         <nav class="index-list" aria-label="功能索引">
           ${[
@@ -17,6 +17,7 @@ const screens = [
             { label: "常見問題模板", desc: "標準回答", next: "template" },
             { label: "救援語句", desc: "卡住使用", next: "rescue" },
             { label: "安心小語", desc: "緊張時用", next: "complete" },
+            { label: "招呼用語", desc: "保持禮貌", next: "rescue" },
           ]
             .map(
               (item) => `
@@ -70,7 +71,7 @@ const screens = [
         <h1 class="screen-title" id="intro-title">簡易自我介紹模板</h1>
         <p class="description">不用完整背下來，只要把重點整理好即可。</p>
         <div class="form-list" aria-label="自我介紹欄位">
-          ${introField("名前", "＿＿＿＿＿＿", "")}
+          ${introField("名前", "", "")}
           ${introField("國籍", "＿＿＿＿＿＿", "例：台湾から来ました。／台湾出身です。")}
           ${introField("身分", "＿＿＿＿＿＿", "例：日本語学校に通っています。／留学生です。")}
           ${introField("強み", "＿＿＿＿＿＿", "例：明るくて話すことが好きです。／真面目に頑張れます。")}
@@ -87,23 +88,15 @@ const screens = [
     render: () => `
       <section class="screen-panel" aria-labelledby="template-title">
         <h1 class="screen-title" id="template-title">常見問題模板</h1>
-        <div class="card question-card">
-          <p class="section-label">問題</p>
-          <p class="question">為什麼想來這裡？</p>
-          <ul class="key-points" aria-label="回答重點">
-            <li>學接客</li>
-            <li>喜歡這家店</li>
-            <li>離家近</li>
-          </ul>
-        </div>
-        <div class="answer-block" aria-label="回答範例">
-          <div class="card answer-card">
-            <p class="section-label">模板</p>
-            <p>想學接客，喜歡這家店，離家近。</p>
-          </div>
-          <div class="card answer-card japanese" lang="ja">
-            <p class="section-label">日文例句</p>
-            <p>接客を学びたいと思い、家からも近いので応募しました。</p>
+        <div class="qa-list" aria-label="常見問題清單">
+          ${qaCard("問題①", "為什麼想來這裡？", ["接客を学びたいと思い、家からも近いので応募しました。", "働きたいからです。"])}
+          ${qaCard("問題②", "日文程度？", ["まだ分からないこともありますが、頑張ります。", "まだ勉強中ですが、頑張ります。"])}
+          ${qaCard("問題③", "通勤沒問題嗎？", ["家から近いです。", "はい、大丈夫です。"])}
+          ${qaCard("問題④", "排班有什麼要求嗎？", ["週○日できます。", "土日曜日も大丈夫です。"])}
+          ${qaCard("問題⑤", "什麼時候可以開始上班？", ["○月○日からすぐに働けます。"])}
+          ${qaCard("問題⑥", "萬用保命句", ["少し考えます。", "もう一度お願いします。"])}
+          <div class="card qa-note">
+            <p>不確定時：はい、頑張ります。</p>
           </div>
         </div>
       </section>
@@ -139,14 +132,24 @@ const screens = [
     render: () => `
       <section class="screen-panel completion-panel" aria-labelledby="complete-title">
         <h1 class="screen-title" id="complete-title">安心小語</h1>
+        <p class="index-subtitle">緊張時可以看</p>
         <div class="card phrase-card">
-          <p class="phrase-zh">不用完美</p>
+          <p class="phrase-zh">日文不用完美</p>
         </div>
         <div class="card phrase-card">
-          <p class="phrase-zh">短句可以</p>
+          <p class="phrase-zh">簡單短句也沒關係</p>
         </div>
         <div class="card phrase-card">
           <p class="phrase-zh">卡住正常</p>
+        </div>
+        <div class="card phrase-card">
+          <p class="phrase-zh">深呼吸緩解一下</p>
+        </div>
+        <div class="card phrase-card">
+          <p class="phrase-zh">展現自己比正確日語重要</p>
+        </div>
+        <div class="card phrase-card">
+          <p class="phrase-zh">忘詞就道歉來調整</p>
         </div>
       </section>
     `,
@@ -159,6 +162,7 @@ const checklistItems = [
   { id: "schedule", label: "可上班時間" },
   { id: "commute", label: "通勤時間" },
   { id: "questions", label: "提問內容" },
+  { id: "greeting", label: "招呼用語" },
 ];
 
 const app = document.querySelector("#app");
@@ -180,8 +184,21 @@ function phraseCard(zh, ja) {
 function introField(label, blank, example) {
   return `
     <article class="card intro-field">
-      <p class="intro-label">${label}：<span class="intro-blank">${blank}</span></p>
+      <p class="intro-label">${label}：<span class="intro-blank">${blank || "＿＿＿＿＿＿"}</span></p>
       ${example ? `<p class="intro-example">${example}</p>` : ""}
+    </article>
+  `;
+}
+
+function qaCard(order, title, lines) {
+  return `
+    <article class="card qa-card">
+      <p class="section-label">${order}</p>
+      <p class="question">${title}</p>
+      <p class="section-label">日文例句</p>
+      <div class="qa-lines" lang="ja">
+        ${lines.map((line) => `<p>${line}</p>`).join("")}
+      </div>
     </article>
   `;
 }
