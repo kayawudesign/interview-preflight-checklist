@@ -72,10 +72,10 @@ const screens = [
         <p class="description">不用完整背下來，只要把重點整理好即可。</p>
         <div class="form-list" aria-label="自我介紹欄位">
           ${introField("名前", "", "")}
-          ${introField("國籍", "＿＿＿＿＿＿", "例：台湾から来ました。／台湾出身です。")}
-          ${introField("身分", "＿＿＿＿＿＿", "例：日本語学校に通っています。／留学生です。")}
-          ${introField("強み", "＿＿＿＿＿＿", "例：明るくて話すことが好きです。／真面目に頑張れます。")}
-          ${introField("応募理由", "＿＿＿＿＿＿", "例：家から近いので応募しました。／シフトが合いやすいです。")}
+          ${introField("國籍", "", "例：台湾から来ました。／台湾出身です。")}
+          ${introField("身分", "", "例：日本語学校に通っています。／留学生です。")}
+          ${introField("強み", "", "例：明るくて話すことが好きです。／真面目に頑張れます。")}
+          ${introField("応募理由", "", "例：家から近いので応募しました。／シフトが合いやすいです。")}
         </div>
       </section>
     `,
@@ -219,7 +219,7 @@ function phraseOnlyCard(text) {
 function introField(label, blank, example) {
   return `
     <article class="card intro-field">
-      <p class="intro-label">${label}：<span class="intro-blank">${blank || "＿＿＿＿＿＿"}</span></p>
+      <p class="intro-label">${label}：<span class="intro-blank">${blank}</span></p>
       ${example ? `<p class="intro-example">${example}</p>` : ""}
     </article>
   `;

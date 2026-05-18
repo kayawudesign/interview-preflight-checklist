@@ -435,6 +435,8 @@ button {
 .intro-blank {
   display: inline-block;
   min-width: 96px;
+  height: 1em;
+  vertical-align: -0.08em;
   letter-spacing: 0;
   border-bottom: 1px solid #20242b;
 }
@@ -601,7 +603,7 @@ button {
   z-index: 20;
   display: grid;
   gap: 10px;
-  padding: 14px 0 calc(var(--bottom-safe) + 8px);
+  padding: 12px 0 max(8px, env(safe-area-inset-bottom));
   background: linear-gradient(180deg, rgba(247, 244, 239, 0), var(--bg) 24%);
 }
 
