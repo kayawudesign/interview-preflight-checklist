@@ -17,7 +17,7 @@ const screens = [
             { label: "常見問題模板", desc: "標準回答", next: "template" },
             { label: "救援語句", desc: "卡住使用", next: "rescue" },
             { label: "安心小語", desc: "緊張時用", next: "complete" },
-            { label: "招呼用語", desc: "保持禮貌", next: "rescue" },
+            { label: "招呼用語", desc: "保持禮貌", next: "greetings" },
           ]
             .map(
               (item) => `
@@ -154,6 +154,33 @@ const screens = [
       </section>
     `,
   },
+  {
+    id: "greetings",
+    title: "招呼用語",
+    cta: "回首頁",
+    next: "home",
+    render: () => `
+      <section class="screen-panel" aria-labelledby="greetings-title">
+        <h1 class="screen-title" id="greetings-title">招呼用語</h1>
+        <p class="index-subtitle">進門/離開/坐下</p>
+
+        <div class="phrase-section" aria-labelledby="greetings-entry">
+          <h2 class="phrase-title" id="greetings-entry">入場</h2>
+          ${phraseOnlyCard("失礼します。")}
+        </div>
+
+        <div class="phrase-section" aria-labelledby="greetings-start">
+          <h2 class="phrase-title" id="greetings-start">面試前打招呼</h2>
+          ${phraseOnlyCard("はじめまして。OOと申します。本日はよろしくお願いいたします。")}
+        </div>
+
+        <div class="phrase-section" aria-labelledby="greetings-end">
+          <h2 class="phrase-title" id="greetings-end">面試結束時</h2>
+          ${phraseOnlyCard("本日はありがとうございました。よろしくお願いいたします。")}
+        </div>
+      </section>
+    `,
+  },
 ];
 
 const checklistItems = [
@@ -177,6 +204,14 @@ function phraseCard(zh, ja) {
     <article class="card phrase-card">
       <p class="phrase-zh">${zh}</p>
       <p class="phrase-ja" lang="ja">${ja}</p>
+    </article>
+  `;
+}
+
+function phraseOnlyCard(text) {
+  return `
+    <article class="card phrase-card" lang="ja">
+      <p class="phrase-ja phrase-ja-only">${text}</p>
     </article>
   `;
 }

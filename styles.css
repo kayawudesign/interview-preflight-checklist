@@ -497,6 +497,12 @@ button {
   line-height: 1.45;
 }
 
+.phrase-ja-only {
+  color: var(--text);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
 .reassurance-card {
   margin-top: 18px;
   background: var(--primary);
