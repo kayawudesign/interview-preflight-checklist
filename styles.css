@@ -529,19 +529,35 @@ button {
 }
 
 .qa-card {
-  padding: 16px;
+  padding: 16px 16px 14px;
+}
+
+.qa-card .section-label {
+  margin-bottom: 6px;
+  font-size: 0.84rem;
+  line-height: 1.25;
+}
+
+.qa-card .question {
+  margin-bottom: 12px;
+  font-size: 1.3rem;
+  line-height: 1.42;
+}
+
+.qa-card .section-label + .qa-lines {
+  margin-top: 2px;
 }
 
 .qa-lines p {
   margin: 0;
   color: var(--text);
-  font-size: 1rem;
-  line-height: 1.45;
-  font-weight: 700;
+  font-size: 1.02rem;
+  line-height: 1.58;
+  font-weight: 680;
 }
 
 .qa-lines p + p {
-  margin-top: 8px;
+  margin-top: 7px;
 }
 
 .qa-note {
@@ -585,7 +601,7 @@ button {
   z-index: 20;
   display: grid;
   gap: 10px;
-  padding: 14px 0 var(--bottom-safe);
+  padding: 14px 0 calc(var(--bottom-safe) + 8px);
   background: linear-gradient(180deg, rgba(247, 244, 239, 0), var(--bg) 24%);
 }
 
