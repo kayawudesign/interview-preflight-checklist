@@ -189,7 +189,7 @@ const screens = [
     next: "home",
     render: () => `
       <section class="screen-panel" aria-labelledby="etiquette-flow-title">
-        <h1 class="screen-title" id="etiquette-flow-title">面試禮儀 Flow</h1>
+        <h1 class="screen-title" id="etiquette-flow-title">面試禮儀與流程</h1>
 
         <div class="phrase-section" aria-labelledby="etiquette-entry">
           <h2 class="phrase-title" id="etiquette-entry">🚪 入室</h2>
