@@ -5,82 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta
       name="description"
-      content="日本打工面試禮儀流程 UI，面試前快速掃讀的入室、着席、退室操作指引。"
+      content="日本打工面試前快速確認工具，包含準備清單、自我介紹、常見回答、救援句與禮儀流程。"
     >
-    <title>日本打工面試禮儀 Flow</title>
+    <title>Interview Preflight Checklist</title>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <main class="flow-app" aria-labelledby="app-title">
-      <header class="hero">
-        <p class="eyebrow">Interview Flow</p>
-        <h1 id="app-title">日本打工面試禮儀</h1>
-        <label class="name-field" for="nameInput">
-          <span>名前</span>
-          <input id="nameInput" type="text" inputmode="text" autocomplete="name" placeholder="〇〇">
-        </label>
+    <div class="app-shell">
+      <header class="top-bar" aria-label="進度">
+        <div>
+          <p class="eyebrow">Interview Preflight Checklist</p>
+          <p class="progress-text" id="progressText">Ready</p>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <span class="progress-fill" id="progressFill"></span>
+        </div>
       </header>
 
-      <nav class="flow-tabs" aria-label="流程段落">
-        <a href="#entry">入室</a>
-        <a href="#seat">着席</a>
-        <a href="#exit">退室</a>
-      </nav>
-
-      <section class="flow-section" id="entry" aria-labelledby="entry-title">
-        <h2 id="entry-title">🚪 入室</h2>
-        <ol class="flow-list">
-          <li>
-            <p class="action">ノック</p>
-          </li>
-          <li>
-            <p class="phrase" lang="ja">「失礼します」</p>
-            <p class="translation">（打擾了）</p>
-          </li>
-          <li>
-            <p class="action" lang="ja">入る・ドアを閉める</p>
-          </li>
-          <li>
-            <p class="phrase" lang="ja">「<span data-name>〇〇</span>です。よろしくお願いします」</p>
-            <p class="translation">（我是<span data-name>〇〇</span>，請多指教）</p>
-          </li>
-        </ol>
-      </section>
-
-      <section class="flow-section" id="seat" aria-labelledby="seat-title">
-        <h2 id="seat-title">🪑 着席</h2>
-        <ol class="flow-list">
-          <li>
-            <p class="phrase" lang="ja">「どうぞ」</p>
-          </li>
-          <li>
-            <p class="phrase" lang="ja">「失礼します」</p>
-          </li>
-          <li>
-            <p class="action" lang="ja">座る</p>
-          </li>
-        </ol>
-      </section>
-
-      <section class="flow-section" id="exit" aria-labelledby="exit-title">
-        <h2 id="exit-title">🙇 結束</h2>
-        <ol class="flow-list">
-          <li>
-            <p class="action" lang="ja">立つ</p>
-          </li>
-          <li>
-            <p class="phrase" lang="ja">「ありがとうございました」</p>
-            <p class="translation">（非常感謝）</p>
-          </li>
-          <li>
-            <p class="phrase" lang="ja">「失礼します」</p>
-          </li>
-          <li>
-            <p class="action" lang="ja">退室</p>
-          </li>
-        </ol>
-      </section>
-    </main>
+      <main id="app" class="screen" tabindex="-1" aria-live="polite"></main>
+    </div>
 
     <script src="script.js"></script>
   </body>
