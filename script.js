@@ -18,6 +18,7 @@ const screens = [
             { label: "救援語句", desc: "卡住使用", next: "rescue" },
             { label: "安心小語", desc: "緊張時用", next: "complete" },
             { label: "招呼用語", desc: "保持禮貌", next: "greetings" },
+            { label: "面試禮儀 Flow", desc: "動作順序", next: "etiquette-flow" },
           ]
             .map(
               (item) => `
@@ -177,6 +178,32 @@ const screens = [
         <div class="phrase-section" aria-labelledby="greetings-end">
           <h2 class="phrase-title" id="greetings-end">面試結束時</h2>
           ${phraseOnlyCard("本日はありがとうございました。よろしくお願いいたします。")}
+        </div>
+      </section>
+    `,
+  },
+  {
+    id: "etiquette-flow",
+    title: "面試禮儀 Flow",
+    cta: "回首頁",
+    next: "home",
+    render: () => `
+      <section class="screen-panel" aria-labelledby="etiquette-flow-title">
+        <h1 class="screen-title" id="etiquette-flow-title">面試禮儀 Flow</h1>
+
+        <div class="phrase-section" aria-labelledby="etiquette-entry">
+          <h2 class="phrase-title" id="etiquette-entry">🚪 入室</h2>
+          ${phraseOnlyCard("ノック<br>↓<br>「失礼します」<br>↓<br>入る・ドアを閉める<br>↓<br>「〇〇です。よろしくお願いします」")}
+        </div>
+
+        <div class="phrase-section" aria-labelledby="etiquette-seat">
+          <h2 class="phrase-title" id="etiquette-seat">🪑 着席</h2>
+          ${phraseOnlyCard("「どうぞ」<br>↓<br>「失礼します」<br>↓<br>座る")}
+        </div>
+
+        <div class="phrase-section" aria-labelledby="etiquette-end">
+          <h2 class="phrase-title" id="etiquette-end">🙇 終了</h2>
+          ${phraseOnlyCard("立つ<br>↓<br>「ありがとうございました」<br>↓<br>「失礼します」<br>↓<br>退室")}
         </div>
       </section>
     `,
