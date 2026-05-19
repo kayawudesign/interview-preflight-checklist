@@ -18,7 +18,7 @@ const screens = [
             { label: "救援語句", desc: "卡住使用", next: "rescue" },
             { label: "安心小語", desc: "緊張時用", next: "complete" },
             { label: "招呼用語", desc: "保持禮貌", next: "greetings" },
-            { label: "面試禮儀 Flow", desc: "動作順序", next: "etiquette-flow" },
+            { label: "面試禮儀與流程", desc: "動作順序", next: "etiquette-flow" },
           ]
             .map(
               (item) => `
