@@ -1,37 +1,29 @@
 const STORAGE_KEY = "interview-preflight-checklist";
 
-const checklistItems = [
-  { id: "arrival", label: "提早 10 分鐘到附近" },
-  { id: "route", label: "店名、地址、路線已確認" },
-  { id: "clothes", label: "服裝乾淨、頭髮整理好" },
-  { id: "intro", label: "自我介紹能說 20 秒" },
-  { id: "schedule", label: "可上班時間已想好" },
-  { id: "questions", label: "最後想問的問題準備 1 個" },
-];
-
 const screens = [
   {
     id: "home",
-    title: "面試前快速掃讀",
-    progress: "Ready",
+    title: "打工面試工具箱",
+    cta: "",
+    next: "",
     render: () => `
       <section class="screen-panel" aria-labelledby="home-title">
-        <h1 class="screen-title" id="home-title">面試前<br><span class="title-subline">快速檢查</span></h1>
-        <p class="index-subtitle">緊張時，只看要做什麼。</p>
-        <nav class="index-list" aria-label="工具選單">
+        <h1 class="screen-title" id="home-title">面試快速檢查清單<br><span class="title-subline">打工版</span></h1>
+        <p class="index-subtitle">快速查找</p>
+        <nav class="index-list" aria-label="功能索引">
           ${[
-            { label: "準備清單", desc: "到場前確認", next: "checklist" },
-            { label: "自我介紹", desc: "20 秒模板", next: "intro-template" },
-            { label: "常見回答", desc: "直接套句", next: "template" },
-            { label: "禮儀 Flow", desc: "入室到退室", next: "etiquette-flow" },
-            { label: "卡住救援", desc: "聽不懂時", next: "rescue" },
-            { label: "最後提醒", desc: "穩住狀態", next: "complete" },
+            { label: "面試前快速檢查", desc: "準備確認", next: "checklist" },
+            { label: "簡易自我介紹模板", desc: "重點整理", next: "intro-template" },
+            { label: "常見問題模板", desc: "標準回答", next: "template" },
+            { label: "救援語句", desc: "卡住使用", next: "rescue" },
+            { label: "安心小語", desc: "緊張時用", next: "complete" },
+            { label: "招呼用語", desc: "保持禮貌", next: "greetings" },
           ]
             .map(
               (item) => `
                 <button class="index-row" type="button" data-next="${item.next}">
                   <span class="index-label">${item.label}</span>
-                  <span class="index-sep" aria-hidden="true">→</span>
+                  <span class="index-sep" aria-hidden="true">—</span>
                   <span class="index-meaning">${item.desc}</span>
                 </button>
               `,
@@ -43,18 +35,17 @@ const screens = [
   },
   {
     id: "checklist",
-    title: "準備清單",
-    progress: "Check",
+    title: "面試前快速檢查",
     cta: "回首頁",
     next: "home",
     render: () => `
       <section class="screen-panel" aria-labelledby="checklist-title">
-        <h1 class="screen-title" id="checklist-title">準備清單</h1>
+        <h1 class="screen-title" id="checklist-title">面試前快速檢查</h1>
         <div class="checklist-meta" aria-live="polite">
-          <span id="checklistCount">0 / ${checklistItems.length}</span>
+          <span id="checklistCount">0 / 5</span>
           <span class="meter" aria-hidden="true"><span id="checklistMeter"></span></span>
         </div>
-        <form class="checklist" aria-label="面試前檢查清單">
+        <form class="checklist" aria-label="面試前檢查項目">
           ${checklistItems
             .map(
               (item) => `
@@ -72,126 +63,133 @@ const screens = [
   },
   {
     id: "intro-template",
-    title: "自我介紹模板",
-    progress: "Intro",
-    cta: "回首頁",
+    title: "簡易自我介紹模板",
+    cta: "返回首頁",
     next: "home",
     render: () => `
       <section class="screen-panel" aria-labelledby="intro-title">
-        <h1 class="screen-title" id="intro-title">自我介紹模板</h1>
-        <p class="description">照順序填空，面試時慢慢說。</p>
+        <h1 class="screen-title" id="intro-title">簡易自我介紹模板</h1>
+        <p class="description">不用完整背下來，只要把重點整理好即可。</p>
         <div class="form-list" aria-label="自我介紹欄位">
-          ${introField("名前", "〇〇です")}
-          ${introField("学校・身分", "台湾から来た留学生です")}
-          ${introField("応募理由", "接客の仕事に興味があります")}
-          ${introField("強み", "明るく、丁寧に対応できます")}
-          ${introField("締め", "よろしくお願いします")}
+          ${introField("名前", "", "")}
+          ${introField("國籍", "", "例：台湾から来ました。／台湾出身です。")}
+          ${introField("身分", "", "例：日本語学校に通っています。／留学生です。")}
+          ${introField("強み", "", "例：明るくて話すことが好きです。／真面目に頑張れます。")}
+          ${introField("応募理由", "", "例：家から近いので応募しました。／シフトが合いやすいです。")}
         </div>
       </section>
     `,
   },
   {
     id: "template",
-    title: "常見回答",
-    progress: "Answer",
+    title: "常見問題模板",
     cta: "回首頁",
     next: "home",
     render: () => `
       <section class="screen-panel" aria-labelledby="template-title">
-        <h1 class="screen-title" id="template-title">常見回答</h1>
-        <div class="qa-list" aria-label="常見面試回答">
-          ${qaCard("Q1", "いつから働けますか？", [
-            "来週から働けます。",
-            "学校の予定に合わせて働きたいです。",
-          ])}
-          ${qaCard("Q2", "週に何日入れますか？", [
-            "週に三日ぐらい入れます。",
-            "土日も相談できます。",
-          ])}
-          ${qaCard("Q3", "なぜ応募しましたか？", [
-            "日本語を使う仕事を経験したいと思いました。",
-            "お店の雰囲気が良いと思いました。",
-          ])}
-          ${qaCard("Q4", "質問はありますか？", [
-            "最初の研修はどのように進みますか？",
-          ])}
+        <h1 class="screen-title" id="template-title">常見問題模板</h1>
+        <div class="qa-list" aria-label="常見問題清單">
+          ${qaCard("問題①", "為什麼想來這裡？", ["<ruby>接客<rt>せっきゃく</rt></ruby>を学びたいと思い、家からも近いので<ruby>応募<rt>おうぼ</rt></ruby>しました。", "働きたいからです。"])}
+          ${qaCard("問題②", "日文程度？", ["まだ分からないこともありますが、<ruby>頑張<rt>がんば</rt></ruby>ります。", "まだ<ruby>勉強中<rt>べんきょうちゅう</rt></ruby>ですが、<ruby>頑張<rt>がんば</rt></ruby>ります。"])}
+          ${qaCard("問題③", "通勤沒問題嗎？", ["家から近いです。", "はい、<ruby>大丈夫<rt>だいじょうぶ</rt></ruby>です。"])}
+          ${qaCard("問題④", "排班有什麼要求嗎？", ["<ruby>週<rt>しゅう</rt></ruby>○<ruby>日<rt>にち</rt></ruby>できます。", "<ruby>土日曜日<rt>どにちようび</rt></ruby>も大丈夫です。"])}
+          ${qaCard("問題⑤", "什麼時候可以開始上班？", ["○<ruby>月<rt>がつ</rt></ruby>○<ruby>日<rt>にち</rt></ruby>からすぐに<ruby>働<rt>はたら</rt></ruby>けます。"])}
+          ${qaCard("問題⑥", "萬用保命句", ["少し考えます。", "もう一度お願いします。"])}
+          <div class="card qa-note">
+            <p>不確定時：はい、頑張ります。</p>
+          </div>
         </div>
-      </section>
-    `,
-  },
-  {
-    id: "etiquette-flow",
-    title: "禮儀 Flow",
-    progress: "Manner",
-    cta: "回首頁",
-    next: "home",
-    render: () => `
-      <section class="screen-panel" aria-labelledby="flow-title">
-        <h1 class="screen-title" id="flow-title">禮儀 Flow</h1>
-        <p class="index-subtitle">一步一動作，一步一句話。</p>
-
-        ${flowSection("🚪 入室", [
-          { action: "ノック" },
-          { phrase: "「失礼します」", zh: "（打擾了）" },
-          { action: "入る・ドアを閉める" },
-          { phrase: "「〇〇です。よろしくお願いします」", zh: "（我是〇〇，請多指教）" },
-        ])}
-
-        ${flowSection("🪑 着席", [
-          { phrase: "「どうぞ」" },
-          { phrase: "「失礼します」" },
-          { action: "座る" },
-        ])}
-
-        ${flowSection("🙇 終了", [
-          { action: "立つ" },
-          { phrase: "「ありがとうございました」", zh: "（非常感謝）" },
-          { phrase: "「失礼します」" },
-          { action: "退室" },
-        ])}
       </section>
     `,
   },
   {
     id: "rescue",
-    title: "卡住救援",
-    progress: "Rescue",
+    title: "救援語句",
     cta: "回首頁",
     next: "home",
     render: () => `
       <section class="screen-panel" aria-labelledby="rescue-title">
-        <h1 class="screen-title" id="rescue-title">卡住救援</h1>
+        <h1 class="screen-title" id="rescue-title">救援語句</h1>
         <div class="phrase-section" aria-labelledby="listen-title">
-          <h2 class="phrase-title" id="listen-title">聽不懂</h2>
-          ${phraseCard("請再說一次", "もう一度お願いします")}
-          ${phraseCard("可以說慢一點嗎", "少しゆっくりお願いします")}
-          ${phraseCard("我確認一下", "確認してもよろしいですか")}
+          <h2 class="phrase-title" id="listen-title">聽不懂時</h2>
+          ${phraseCard("再說一次", "もう一度お願いします。")}
+          ${phraseCard("說慢一點", "ゆっくりお願いします。")}
+          ${phraseCard("聽不懂", "すみません、わかりません。")}
         </div>
         <div class="phrase-section" aria-labelledby="thinking-title">
-          <h2 class="phrase-title" id="thinking-title">需要時間想</h2>
-          ${phraseCard("請稍等一下", "少々お待ちください")}
-          ${phraseCard("我想一下", "少し考えてもよろしいですか")}
+          <h2 class="phrase-title" id="thinking-title">需要思考時</h2>
+          ${phraseCard("想一下", "少し考えてもいいですか。")}
+          ${phraseCard("再確認", "確認してもいいですか。")}
         </div>
       </section>
     `,
   },
   {
     id: "complete",
-    title: "最後提醒",
-    progress: "Calm",
+    title: "安心小語",
     cta: "回首頁",
     next: "home",
     render: () => `
       <section class="screen-panel completion-panel" aria-labelledby="complete-title">
-        <h1 class="screen-title" id="complete-title">最後提醒</h1>
-        <p class="index-subtitle">進門前看這裡。</p>
-        ${phraseOnlyCard("ゆっくり話す")}
-        ${phraseOnlyCard("分からない時は聞き返す")}
-        ${phraseOnlyCard("最後にお礼を言う")}
-        ${phraseOnlyCard("大丈夫。準備できている")}
+        <h1 class="screen-title" id="complete-title">安心小語</h1>
+        <p class="index-subtitle">緊張時可以看</p>
+        <div class="card phrase-card">
+          <p class="phrase-zh">日文不用完美</p>
+        </div>
+        <div class="card phrase-card">
+          <p class="phrase-zh">簡單短句也沒關係</p>
+        </div>
+        <div class="card phrase-card">
+          <p class="phrase-zh">卡住正常</p>
+        </div>
+        <div class="card phrase-card">
+          <p class="phrase-zh">深呼吸緩解一下</p>
+        </div>
+        <div class="card phrase-card">
+          <p class="phrase-zh">展現自己比正確日語重要</p>
+        </div>
+        <div class="card phrase-card">
+          <p class="phrase-zh">忘詞就道歉來調整</p>
+        </div>
       </section>
     `,
   },
+  {
+    id: "greetings",
+    title: "招呼用語",
+    cta: "回首頁",
+    next: "home",
+    render: () => `
+      <section class="screen-panel" aria-labelledby="greetings-title">
+        <h1 class="screen-title" id="greetings-title">招呼用語</h1>
+        <p class="index-subtitle">進門/離開/坐下</p>
+
+        <div class="phrase-section" aria-labelledby="greetings-entry">
+          <h2 class="phrase-title" id="greetings-entry">入場</h2>
+          ${phraseOnlyCard("失礼します。")}
+        </div>
+
+        <div class="phrase-section" aria-labelledby="greetings-start">
+          <h2 class="phrase-title" id="greetings-start">面試前打招呼</h2>
+          ${phraseOnlyCard("はじめまして。OOと申します。本日はよろしくお願いいたします。")}
+        </div>
+
+        <div class="phrase-section" aria-labelledby="greetings-end">
+          <h2 class="phrase-title" id="greetings-end">面試結束時</h2>
+          ${phraseOnlyCard("本日はありがとうございました。よろしくお願いいたします。")}
+        </div>
+      </section>
+    `,
+  },
+];
+
+const checklistItems = [
+  { id: "intro", label: "自我介紹" },
+  { id: "motivation", label: "應徵動機" },
+  { id: "schedule", label: "可上班時間" },
+  { id: "commute", label: "通勤時間" },
+  { id: "questions", label: "提問內容" },
+  { id: "greeting", label: "招呼用語" },
 ];
 
 const app = document.querySelector("#app");
@@ -218,11 +216,11 @@ function phraseOnlyCard(text) {
   `;
 }
 
-function introField(label, example) {
+function introField(label, blank, example) {
   return `
     <article class="card intro-field">
-      <p class="intro-label">${label}</p>
-      <p class="intro-example" lang="ja">${example}</p>
+      <p class="intro-label">${label}：<span class="intro-blank">${blank}</span></p>
+      ${example ? `<p class="intro-example">${example}</p>` : ""}
     </article>
   `;
 }
@@ -231,31 +229,12 @@ function qaCard(order, title, lines) {
   return `
     <article class="card qa-card">
       <p class="section-label">${order}</p>
-      <p class="question" lang="ja">${title}</p>
+      <p class="question">${title}</p>
+      <p class="section-label">日文例句</p>
       <div class="qa-lines" lang="ja">
         ${lines.map((line) => `<p>${line}</p>`).join("")}
       </div>
     </article>
-  `;
-}
-
-function flowSection(title, steps) {
-  return `
-    <section class="flow-block" aria-label="${title}">
-      <h2 class="flow-title">${title}</h2>
-      <ol class="flow-list">
-        ${steps
-          .map(
-            (step) => `
-              <li class="flow-step">
-                <p class="${step.phrase ? "flow-phrase" : "flow-action"}" lang="ja">${step.phrase ?? step.action}</p>
-                ${step.zh ? `<p class="flow-translation">${step.zh}</p>` : ""}
-              </li>
-            `,
-          )
-          .join("")}
-      </ol>
-    </section>
   `;
 }
 
@@ -275,19 +254,23 @@ function saveState() {
 function render(screenId = activeScreenId) {
   activeScreenId = screenId;
   const screen = screens.find((item) => item.id === screenId) ?? screens[0];
-  const index = screens.findIndex((item) => item.id === screen.id);
-
-  progressText.textContent = screen.progress;
-  progressFill.style.width = `${((index + 1) / screens.length) * 100}%`;
+  const isHome = screen.id === "home";
+  progressText.textContent = isHome ? "工具箱" : screen.title;
+  progressFill.style.width = isHome ? "100%" : "100%";
 
   app.innerHTML = `
     ${screen.render()}
     ${
       screen.id === "home"
         ? ""
-        : `<nav class="sticky-actions" aria-label="頁面操作">
-            <button class="primary-button" type="button" data-next="${screen.next}">${screen.cta}</button>
-          </nav>`
+        : `<nav class="sticky-actions" aria-label="下一步">
+      <button class="primary-button" type="button" data-next="${screen.next}">${screen.cta}</button>
+      ${
+        screen.secondary
+          ? `<button class="secondary-link" type="button" data-next="${screen.secondaryNext ?? "home"}">${screen.secondary}</button>`
+          : ""
+      }
+    </nav>`
     }
   `;
 
